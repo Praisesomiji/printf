@@ -38,7 +38,7 @@ int _printf(const char *format, ...)
 }
 
 /**
- * format - format char(c) and string(s)
+ * _format - format char(c) and string(s)
  * @f: format
  * @args: variadic arguments
  *
