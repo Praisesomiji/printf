@@ -22,14 +22,15 @@ int _printf(const char *format, ...)
 
 	while (format[i] != '\0')
 	{
-		if (format[i] == '%')
+		switch (format[i])
 		{
-			count += _format(format[++i], args);
-		}
-		else
-		{
-			write(1, format + i, 1);
-			count++;
+			case '%':
+				count += _format(format[++i], args);
+				break;
+			default:
+				write(1, format + i, 1);
+				count++;
+				break;
 		}
 		i++;
 	}
@@ -50,8 +51,13 @@ int _format(char f, va_list args)
 	char *str;
 	char ch;
 
-	if (f == '\0')
-		return (-1);
+	switch (f)
+	{
+		case '\0':
+			return (-1);
+		default:
+			break;
+	}
 
 	count = 0;
 	switch (f)
@@ -63,20 +69,18 @@ int _format(char f, va_list args)
 			break;
 		case 's':
 			str = va_arg(args, char *);
-			if (str)
-			{
-				i = 0;
-				while (str[i] != '\0')
-				{
-					write(1, str + i, 1);
-					count++;
-					i++;
-				}
-			}
-			else
+			if (!str)
 			{
 				write(1, "(null)", 6);
 				count += 6;
+				break;
+			}
+			i = 0;
+			while (str[i] != '\0')
+			{
+				write(1, str + i, 1);
+				count++;
+				i++;
 			}
 			break;
 		case '%':

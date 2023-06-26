@@ -13,7 +13,7 @@ int main(void)
 
     len = _printf("Let's try to printf a simple sentence.\n");
     len2 = printf("Let's try to printf a simple sentence.\n");
-    
+
     printf("**Length:[%d, %d]\n\n", len, len2);
 
     _printf("Character:[%c]\n", 'H');
@@ -32,6 +32,11 @@ int main(void)
 
     len = _printf("String:[%s] <%s>\n", "I am a string %%%", NULL);
     len2 = printf("String:[%s] <%s>\n", "I am a string %%%", NULL);
+    printf("Len:[%d]\n", len);
+    printf("Len:[%d]\n", len2);
+
+    len = _printf("");
+    len2 = printf("");
     printf("Len:[%d]\n", len);
     printf("Len:[%d]\n", len2);
 
