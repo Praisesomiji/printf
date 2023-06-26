@@ -73,6 +73,11 @@ int _format(char f, va_list args)
 					i++;
 				}
 			}
+			else
+			{
+				write(1, "(null)", 6);
+				count += 6;
+			}
 			break;
 		case '%':
 			ch = '%';
