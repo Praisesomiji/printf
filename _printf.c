@@ -28,7 +28,7 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			putchar(format[i]);
+			write(1, format + i, 1);
 			count++;
 		}
 		i++;
@@ -48,6 +48,7 @@ int _format(char f, va_list args)
 {
 	int i, count;
 	char *str;
+	char ch;
 
 	if (f == '\0')
 		return (-1);
@@ -56,7 +57,8 @@ int _format(char f, va_list args)
 	switch (f)
 	{
 		case 'c':
-			putchar(va_arg(args, int));
+			ch = va_arg(args, int);
+			write(1, &ch, 1);
 			count++;
 			break;
 		case 's':
@@ -66,14 +68,15 @@ int _format(char f, va_list args)
 				i = 0;
 				while (str[i] != '\0')
 				{
-					putchar(str[i]);
+					write(1, str + i, 1);
 					count++;
 					i++;
 				}
 			}
 			break;
 		case '%':
-			putchar('%');
+			ch = '%';
+			write(1, &ch, 1);
 			count++;
 			break;
 	}
