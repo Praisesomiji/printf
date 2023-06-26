@@ -1,6 +1,6 @@
 #include "main.h"
 
-int format(char *fp, va_list args);
+int _format(char f, va_list args);
 
 /**
  * _printf - produces output according to a format.
@@ -10,9 +10,8 @@ int format(char *fp, va_list args);
  */
 int _printf(const char *format, ...)
 {
-	int i, j, count;
+	int i, count;
 	va_list args;
-	char *str;
 
 	if (format == NULL)
 		return (-1);
@@ -21,51 +20,55 @@ int _printf(const char *format, ...)
 	count = 0;
 	va_start(args, format);
 
-	while (format[i++] != '\0')
+	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 		{
-			count += format(format[++i], args);
+			count += _format(format[++i], args);
 		}
 		else
 		{
 			putchar(format[i]);
 			count++;
 		}
+		i++;
 	}
-	putchar('\n');
-	}
-
 	va_end(args);
 	return (count);
 }
 
 /**
  * format - format char(c) and string(s)
- * @fp: pointer to the format
+ * @f: format
  * @args: variadic arguments
  *
  * Return: Number of characters outputted to standard output.
  */
-int format(char *fp, va_list args)
+int _format(char f, va_list args)
 {
 	int i, count;
 	char *str;
 
-	switch (*fp)
+	if (f == '\0')
+		return (-1);
+
+	count = 0;
+	switch (f)
 	{
 		case 'c':
-			putchar(va_args(args, int));
+			putchar(va_arg(args, int));
 			count++;
 			break;
 		case 's':
-			str = va_args(arg, char *);
+			str = va_arg(args, char *);
 			if (str)
 			{
+				i = 0;
 				while (str[i] != '\0')
 				{
-					putchar(str[j]);
+					putchar(str[i]);
 					count++;
+					i++;
 				}
 			}
 			break;
