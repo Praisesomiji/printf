@@ -1,6 +1,7 @@
 #include "main.h"
 
 int _format(char f, va_list args);
+int printstr(char *str);
 
 /**
  * _printf - produces output according to a format.
@@ -47,7 +48,7 @@ int _printf(const char *format, ...)
  */
 int _format(char f, va_list args)
 {
-	int i, count;
+	int n, count;
 	char *str;
 	char ch;
 
@@ -69,25 +70,46 @@ int _format(char f, va_list args)
 			break;
 		case 's':
 			str = va_arg(args, char *);
-			if (!str)
-			{
-				write(1, "(null)", 6);
-				count += 6;
-				break;
-			}
-			i = 0;
-			while (str[i] != '\0')
-			{
-				write(1, str + i, 1);
-				count++;
-				i++;
-			}
+			count += printstr(str);
+			break;
+		case 'd':
+			n = va_arg(args, int);
+			str = tostring(n);
+			count += printstr(str);
+			break;
+		case 'i':
+			n = va_arg(args, int);
+			str = tostring(n);
+			count += printstr(str);
 			break;
 		case '%':
 			ch = '%';
 			write(1, &ch, 1);
 			count++;
 			break;
+	}
+	return (count);
+}
+
+int printstr(char *str)
+{
+	int i, count;
+
+	if (!str)
+		return (0);
+
+	i = 0;
+	count = 0;
+	if (!str)
+	{
+		write(1, "(null)", 6);
+		count += 6;
+	}
+	while (str[i] != '\0')
+	{
+		write(1, str + i, 1);
+		count++;
+		i++;
 	}
 	return (count);
 }
