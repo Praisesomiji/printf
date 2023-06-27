@@ -20,5 +20,8 @@ int main(void)
     _printf("int %i, %d\n", a, a);
     free(s);
 
+    printf("NULL: %s\n", NULL);
+    _printf("NULL: %s\n", NULL);
+
     return (0);
 }
