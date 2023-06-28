@@ -2,6 +2,8 @@
 #include <string.h>
 
 int _itostr(const int num, int sz, int *len, char **const str);
+void _chtod(const int num, const int base, int count, int *output);
+void _chfrod(const int num, const int base, int count, int *output);
 
 /**
  * tostring - convert int to string
@@ -73,25 +75,79 @@ int _itostr(const int num, int sz, int *len, char **str)
 }
 
 /**
- * _chbase - change the base of a number
- * @num: the number
+ * changebase - change the base of a number
+ * @num: an integer
+ * @sbase: source base
+ * @dbase: destination base
+ *_chfrod(num, dbase, &count, &output);
+ * Return: Number in new base.
+ */
+int chbase(int num, const int sbase, const int dbase)
+{
+	int count, output;
+
+	count = 0;
+	output = 0;
+	if (sbase == 10)
+	{
+		_chfrod(num, dbase, count, &output);
+	}
+	else if (dbase == 10)
+	{
+		_chtod(num, sbase, count, &output);
+	}
+	else
+	{
+		_chfrod(num, dbase, count, &output);
+		_chtod(num, sbase, count, &output);
+	}
+
+	return (output);
+}
+
+/**
+ * _chfrod - change from decimal to given base
+ * @num: 
  * @base: the base
- * @count: counts up from zero and raises the power of each digit
- * @sumptr: pointer to the accumulated result
+ * @count: counts down from zero and raises the power of each digit
+ * @output: pointer to the accumulated result
  *
  * Return: Nothing.
  */
-void _chbase(const int num, const int base, const int count, int *const sumptr)
+void _chfrod(const int num, const int base, int count, int *output)
 {
 	int n, m;
 
-	if (num > 10)
+	if (num >= base)
+	{
+		n = num / base;
+		_chfrod(n, base, count + 1, output);
+	}
+
+	m = num % base;
+	*output += m * _topower(10, count);
+}
+
+/**
+ * _chtod - change base to base 10 (decimal)
+ * @num: the number
+ * @base: the base
+ * @count: counts up from zero and raises the power of each digit
+ * @output: pointer to the accumulated result
+ *
+ * Return: Nothing.
+ */
+void _chtod(const int num, const int base, int count, int *output)
+{
+	int n, m;
+
+	if (num >= 10)
 	{
 		n = num / 10;
-		_chbase(n, base, count + 1, sumptr);
+		_chtod(n, base, count + 1, output);
 	}
 	m = num % 10;
-	*sumptr += m * _topower(base, count);
+	*output += m * _topower(base, count);
 }
 
 /**
@@ -103,12 +159,11 @@ void _chbase(const int num, const int base, const int count, int *const sumptr)
  */
 int _topower(int b, int x)
 {
-	int n = b;
+	int n = 1;
 
 	while (x--)
 		n *= b;
 
 	return (n);
 }
-
 

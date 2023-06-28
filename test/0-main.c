@@ -10,7 +10,6 @@
 int main(void)
 {
     int len,len2;
-    char c;
 
     len = _printf("Let's try to printf a simple sentence.\n");
     len2 = printf("Let's try to printf a simple sentence.\n");
@@ -45,15 +44,16 @@ int main(void)
     printf("oct: %i %d\n", 010, 010);
     printf("hex: %i %d\n", 0x10, 0x10);
 
-    len = len - len + 0x10;
-    printf(">>%d\n", len);
-    write(1, &len, 1);
-    printf("\n");
-    write(1, &len, 4);
-    _printf("\n");
-    c = 'e';
-    write(1, &c, 1);
-    _printf("\n");
+    _printf("\ndec: %i %d\n", 10, 10);
+    _printf("oct: %i %d\n", 010, 010);
+    _printf("hex: %i %d\n", 0x10, 0x10);
 
+    printf("dec: %i %d\n", 255, 255);
+    printf("oct: %i %d\n", 0377, 0377);
+    printf("hex: %i %d\n", 0xFF, 0xFF);
+
+    _printf("\ndec: %i %d\n", 255, 255);
+    _printf("oct: %i %d\n", 0377, 0377);
+    _printf("hex: %i %d\n", 0xFF, 0xFF);
     return (0);
 }

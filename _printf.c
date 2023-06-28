@@ -81,6 +81,12 @@ int _format(char f, va_list args)
 			str = tostring(n);
 			count += printstr(str);
 			break;
+		case 'b':
+			n = va_arg(args, int);
+			n = chbase(n, 10, 2);
+			str = tostring(n);
+			count += printstr(str);
+			break;
 		case '%':
 			ch = '%';
 			write(1, &ch, 1);
