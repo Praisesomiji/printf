@@ -11,7 +11,8 @@ int _printf(const char *format, ...);
 
 /* utils */
 char *tostring(int num);
-void _chbase(const int num, const int base, const int count, int *const sumptr);
+void _chbase(const int num, const int base,
+		const int count, int *const sumptr);
 int _topower(int b, int x);
 int printstr(char *str);
 
