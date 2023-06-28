@@ -1,7 +1,7 @@
 #include "main.h"
 #include <string.h>
 
-void _itostr(const int num, int sz, int *len, char **const str);
+int _itostr(const int num, int sz, int *len, char **const str);
 
 /**
  * tostring - convert int to string
@@ -27,7 +27,8 @@ char *tostring(int num)
 		num *= sign;
 	}
 
-	_itostr(num, size, &len, &str);
+	if (!_itostr(num, size, &len, &str))
+		return (NULL);
 
 	if (sign == -1)
 		str[0] = '-';
@@ -44,7 +45,7 @@ char *tostring(int num)
  *
  * Return: Length of Converted String (excepting '\0')
  */
-void _itostr(const int num, int sz, int *len, char **str)
+int _itostr(const int num, int sz, int *len, char **str)
 {
 	int n, m;
 	char ch;
@@ -58,7 +59,7 @@ void _itostr(const int num, int sz, int *len, char **str)
 	{
 		*str = malloc(sz + 1);
 		if (!str)
-			exit(98);
+			return (0);
 		(*str)[0] = 0;
 		(*str)[sz] = '\0';
 	}
@@ -67,6 +68,8 @@ void _itostr(const int num, int sz, int *len, char **str)
 	ch = m + '0';
 	(*str)[*len] = ch;
 	*len += 1;
+
+	return (*len);
 }
 
 /**
