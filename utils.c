@@ -75,7 +75,7 @@ int _itostr(const int num, int sz, int *len, char **str)
 }
 
 /**
- * changebase - change the base of a number
+ * chbase - change the base of a number
  * @num: an integer
  * @sbase: source base
  * @dbase: destination base
@@ -107,7 +107,7 @@ int chbase(int num, const int sbase, const int dbase)
 
 /**
  * _chfrod - change from decimal to given base
- * @num: 
+ * @num: a number
  * @base: the base
  * @count: counts down from zero and raises the power of each digit
  * @output: pointer to the accumulated result
